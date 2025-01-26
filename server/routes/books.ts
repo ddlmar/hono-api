@@ -36,6 +36,11 @@ export const booksRoute = new Hono()
   .get("/", (c) => {
     return c.json({ books: mockedBooks });
   })
+  .get("/authors", (c) => {
+    const authors = mockedBooks.map((book) => book.author);
+
+    return c.json({ authors });
+  })
   .post("/", zValidator("json", bookRequestSchema), (c) => {
     const data = c.req.valid("json");
 

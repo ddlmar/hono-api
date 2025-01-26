@@ -1,10 +1,12 @@
 import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
+
 import path from "path";
+import viteReact from "@vitejs/plugin-react";
+import { TanStackRouterVite } from "@tanstack/router-plugin/vite";
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [TanStackRouterVite(), viteReact()],
   server: {
     port: 4000,
     host: "localhost",
@@ -20,6 +22,7 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
       "@server": path.resolve(__dirname, "../server"),
       "@components": path.resolve(__dirname, "./src/components"),
+      "@lib": path.resolve(__dirname, "./src/lib"),
     },
   },
 });
