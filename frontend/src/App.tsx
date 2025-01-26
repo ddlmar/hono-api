@@ -1,23 +1,25 @@
-import { useState } from "react";
+import { Button } from "@components/ui/button";
+import { useEffect, useState } from "react";
 
 function App() {
   const [count, setCount] = useState(0);
 
+  useEffect(() => {
+    fetch("/api/books/");
+  }, []);
+
   return (
     <>
-      <div className="flex items-center flex-col p-10 gap-2">
-        <button
-          className="px-2 py-1 bg-blue-500 min-w-32 text-white rounded-lg font-semibold"
+      <div className="flex m-autos flex-col p-10 gap-4">
+        <Button
+          variant="secondary"
           onClick={() => setCount((count) => count + 1)}
         >
           Upgrade
-        </button>
-        <button
-          className="px-2 py-1 bg-red-500 min-w-32 text-white rounded-lg font-semibold"
-          onClick={() => setCount((count) => count - 1)}
-        >
+        </Button>
+        <Button onClick={() => setCount((count) => count - 1)}>
           Downgrade
-        </button>
+        </Button>
         <p>{count}</p>
       </div>
     </>
