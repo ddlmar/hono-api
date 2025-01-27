@@ -26,8 +26,6 @@ function Index() {
     queryFn: getBooks,
   });
 
-  console.log(query.data);
-
   return (
     <>
       <div className="flex m-autos flex-col p-10 gap-4">

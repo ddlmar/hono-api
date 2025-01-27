@@ -33,6 +33,7 @@ let id = mockedBooks.reduce((previousValue, currentValue) => {
 }, 0);
 
 export const booksRoute = new Hono()
+  .basePath("/books")
   .get("/", (c) => {
     return c.json({ books: mockedBooks });
   })
