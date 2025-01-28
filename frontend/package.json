@@ -8,7 +8,6 @@
     "build": "bunx --bun vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "prepare": "husky",
     "prettier-format": "prettier --config .prettierrc \"src/**/*.{ts,tsx}\" --write"
   },
   "dependencies": {
@@ -37,7 +36,6 @@
     "eslint-plugin-react-hooks": "^5.0.0",
     "eslint-plugin-react-refresh": "^0.4.16",
     "globals": "^15.14.0",
-    "husky": "^9.1.7",
     "lint-staged": "^15.4.3",
     "postcss": "^8.5.1",
     "prettier": "3.4.2",
@@ -48,10 +46,5 @@
   },
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "bun tsc && bun lint && bun prettier-format"
-    }
   }
 }
