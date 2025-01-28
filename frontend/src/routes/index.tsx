@@ -1,30 +1,30 @@
-import { Button } from "@components/ui/button";
-import { api } from "@lib/api";
-import { useQuery } from "@tanstack/react-query";
-import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { Button } from '@components/shadcn/ui/button'
+import { api } from '@lib/api'
+import { useQuery } from '@tanstack/react-query'
+import { createFileRoute } from '@tanstack/react-router'
+import { useState } from 'react'
 
-export const Route = createFileRoute("/")({
+export const Route = createFileRoute('/')({
   component: Index,
-});
+})
 
 const getBooks = async () => {
-  const response = await api.books.authors.$get();
+  const response = await api.books.authors.$get()
 
   if (!response.ok) {
-    throw new Error("Server error");
+    throw new Error('Server error')
   }
 
-  return response.json();
-};
+  return response.json()
+}
 
 function Index() {
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(0)
 
   const query = useQuery({
-    queryKey: ["books"],
+    queryKey: ['books'],
     queryFn: getBooks,
-  });
+  })
 
   return (
     <>
@@ -42,5 +42,5 @@ function Index() {
         <code>{JSON.stringify(query.data, null, 2)}</code>
       </div>
     </>
-  );
+  )
 }
