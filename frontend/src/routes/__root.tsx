@@ -9,13 +9,13 @@ function NavBar() {
   return (
     <div className="p-2 flex gap-2">
       <Link to="/" className="[&.active]:font-bold">
-        Home
+        Livros
       </Link>{' '}
-      <Link to="/about" className="[&.active]:font-bold">
-        About
+      <Link to="/create" className="[&.active]:font-bold">
+        Adicionar livro
       </Link>
       <Link to="/authors" className="[&.active]:font-bold">
-        Authors
+        Autores
       </Link>
     </div>
   )

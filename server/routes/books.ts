@@ -35,7 +35,7 @@ let id = mockedBooks.reduce((previousValue, currentValue) => {
 export const booksRoute = new Hono()
   .basePath("/books")
   .get("/", (c) => {
-    return c.json({ books: mockedBooks });
+    return c.json({ books: mockedBooks.reverse() });
   })
   .get("/authors", (c) => {
     const authors = mockedBooks.map((book) => book.author);
