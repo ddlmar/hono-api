@@ -1,7 +1,11 @@
 import { Hono } from "hono";
-import { bookRequestSchema } from "../request/books";
+
 import { zValidator } from "@hono/zod-validator";
-import type { Book } from "../model/books";
+import type { Book } from "@model/booksModel";
+import { bookRequestSchema } from "@request/booksRequest";
+import { bearerAuth } from "hono/bearer-auth";
+import { getCookie } from "hono/cookie";
+import { jwt } from "hono/jwt";
 
 const mockedBooks: Array<Book> = [
   {
@@ -33,7 +37,12 @@ let id = mockedBooks.reduce((previousValue, currentValue) => {
 }, 0);
 
 export const booksRoute = new Hono()
-  .basePath("/books")
+  .use(
+    "/*",
+    jwt({
+      secret: Bun.env.SECRET!,
+    })
+  )
   .get("/", (c) => {
     return c.json({ books: mockedBooks.reverse() });
   })
@@ -42,25 +51,34 @@ export const booksRoute = new Hono()
 
     return c.json({ authors });
   })
-  .post("/", zValidator("json", bookRequestSchema), (c) => {
-    const data = c.req.valid("json");
+  .post(
+    "/",
+    zValidator("json", bookRequestSchema),
+    bearerAuth({
+      verifyToken: (token, c) => token === getCookie(c, "token"),
+    }),
+    (c) => {
+      const data = c.req.valid("json");
 
-    const bookId = mockedBooks.reduce((previousValue, currentValue) => {
-      if (previousValue > currentValue.id) {
-        return previousValue;
-      }
+      console.log(c.get("jwtPayload"));
 
-      return currentValue.id;
-    }, id);
+      const bookId = mockedBooks.reduce((previousValue, currentValue) => {
+        if (previousValue > currentValue.id) {
+          return previousValue;
+        }
 
-    id = bookId + 1;
+        return currentValue.id;
+      }, id);
 
-    const books = bookRequestSchema.parse(data);
+      id = bookId + 1;
 
-    mockedBooks.push({ id, ...books });
+      const books = bookRequestSchema.parse(data);
 
-    return c.json({ ...books });
-  })
+      mockedBooks.push({ id, ...books });
+
+      return c.json({ ...books });
+    }
+  )
   .get("/:id{[0-9]+}", (c) => {
     const id = parseInt(c.req.param("id"));
 

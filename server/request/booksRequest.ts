@@ -1,4 +1,4 @@
-import { bookModel } from "../model/books";
+import { bookModel } from "@model/booksModel";
 import { z } from "zod";
 
 export const bookRequestSchema = bookModel.omit({

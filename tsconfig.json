@@ -7,6 +7,14 @@
     "moduleDetection": "force",
     "jsx": "react-jsx",
     "allowJs": true,
+    // Path alias
+    "baseUrl": "./server",
+    "paths": {
+      "@model/*": ["model/*"],
+      "@request/*": ["request/*"],
+      "@routes/*": ["routes/*"],
+      "@response/*": ["response/*"]
+    },
 
     // Bundler mode
     "moduleResolution": "bundler",
