@@ -25,5 +25,5 @@ export const authRoute = new Hono().post(
     setCookie(c, "token", token);
 
     return c.json({ payload, token });
-  }
+  },
 );

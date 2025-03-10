@@ -1,20 +1,31 @@
 {
   "name": "express-api",
+  "type": "module",
   "module": "index.ts",
-  "devDependencies": {
-    "@types/bun": "latest"
+  "scripts": {
+    "start": "bun ./server/index.ts",
+    "dev": "bun --watch ./server/index.ts",
+    "lint": "eslint",
+    "lint:fix": "eslint --fix"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
   },
-  "scripts": {
-    "start": "bun ./server/index.ts",
-    "dev": "bun --watch ./server/index.ts"
-  },
-  "type": "module",
   "dependencies": {
     "@hono/zod-validator": "^0.4.2",
     "hono": "^4.6.16",
     "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^4.8.1",
+    "@types/bun": "latest",
+    "eslint": "^9.22.0",
+    "eslint-plugin-format": "^1.0.1"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "bun lint-staged"
+  },
+  "lint-staged": {
+    "*": "eslint --fix"
   }
 }

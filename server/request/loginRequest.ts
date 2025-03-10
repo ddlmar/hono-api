@@ -1,5 +1,6 @@
-import { loginModel } from "@model/loginModel";
 import type { z } from "zod";
+
+import { loginModel } from "@model/loginModel";
 
 export const loginRequestSchema = loginModel;
 

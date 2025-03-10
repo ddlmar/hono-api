@@ -1,8 +1,8 @@
-import { Hono } from "hono";
+import type { Book } from "@model/booksModel";
 
 import { zValidator } from "@hono/zod-validator";
-import type { Book } from "@model/booksModel";
 import { bookRequestSchema } from "@request/booksRequest";
+import { Hono } from "hono";
 import { bearerAuth } from "hono/bearer-auth";
 import { getCookie } from "hono/cookie";
 import { jwt } from "hono/jwt";
@@ -41,13 +41,13 @@ export const booksRoute = new Hono()
     "/*",
     jwt({
       secret: Bun.env.SECRET!,
-    })
+    }),
   )
   .get("/", (c) => {
     return c.json({ books: mockedBooks.reverse() });
   })
   .get("/authors", (c) => {
-    const authors = mockedBooks.map((book) => book.author);
+    const authors = mockedBooks.map(book => book.author);
 
     return c.json({ authors });
   })
@@ -59,8 +59,6 @@ export const booksRoute = new Hono()
     }),
     (c) => {
       const data = c.req.valid("json");
-
-      console.log(c.get("jwtPayload"));
 
       const bookId = mockedBooks.reduce((previousValue, currentValue) => {
         if (previousValue > currentValue.id) {
@@ -77,12 +75,12 @@ export const booksRoute = new Hono()
       mockedBooks.push({ id, ...books });
 
       return c.json({ ...books });
-    }
+    },
   )
   .get("/:id{[0-9]+}", (c) => {
-    const id = parseInt(c.req.param("id"));
+    const id = Number.parseInt(c.req.param("id"));
 
-    const filteredBook = mockedBooks.find((book) => book.id === id);
+    const filteredBook = mockedBooks.find(book => book.id === id);
 
     if (!filteredBook) {
       return c.notFound();
@@ -91,9 +89,9 @@ export const booksRoute = new Hono()
     return c.json(filteredBook);
   })
   .delete("/:id{[0-9]+}", (c) => {
-    const id = parseInt(c.req.param("id"));
+    const id = Number.parseInt(c.req.param("id"));
 
-    const index = mockedBooks.findIndex((book) => book.id === id);
+    const index = mockedBooks.findIndex(book => book.id === id);
 
     if (index === -1) {
       return c.notFound();

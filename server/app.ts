@@ -1,10 +1,9 @@
+import { authRoute } from "@routes/authRoute";
+import { booksRoute } from "@routes/booksRoute";
 import { Hono } from "hono";
-import { logger } from "hono/logger";
-import { serveStatic } from "hono/bun";
 
 import { cors } from "hono/cors";
-import { booksRoute } from "@routes/booksRoute";
-import { authRoute } from "@routes/authRoute";
+import { logger } from "hono/logger";
 
 const app = new Hono();
 
@@ -24,10 +23,6 @@ app.use(
   })
 );
 
-const apiRoutes = app
-  .basePath("/api")
-  .route("/books", booksRoute)
-  .route("/auth", authRoute);
+app.basePath("/api").route("/books", booksRoute).route("/auth", authRoute);
 
 export default app;
-export type ApiRoutes = typeof apiRoutes;

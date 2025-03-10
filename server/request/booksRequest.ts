@@ -1,5 +1,5 @@
+import type { z } from "zod";
 import { bookModel } from "@model/booksModel";
-import { z } from "zod";
 
 export const bookRequestSchema = bookModel.omit({
   id: true,
