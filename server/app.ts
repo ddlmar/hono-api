@@ -1,28 +1,25 @@
-import { authRoute } from "@routes/authRoute";
-import { booksRoute } from "@routes/booksRoute";
-import { Hono } from "hono";
+import type { PinoLogger } from "hono-pino";
+import type { RequestIdVariables } from "hono/request-id";
+import { OpenAPIHono } from "@hono/zod-openapi";
+import { requestId } from "hono/request-id";
+import pinoLogger from "middleware/pinoLogger";
+import { notFound, onError } from "stoker/middlewares";
 
-import { cors } from "hono/cors";
-import { logger } from "hono/logger";
+interface Variables {
+  Variables: RequestIdVariables & { logger: PinoLogger };
+}
 
-const app = new Hono();
+const app = new OpenAPIHono<Variables>();
 
-app.use("*", logger());
+app.use("*", requestId());
+app.use("*", pinoLogger());
 
-app.use(
-  "*",
-  cors({
-    origin: (origin) => {
-      return origin.endsWith("http://localhost:4000")
-        ? origin
-        : "http://localhost:4000";
-    },
-    allowHeaders: ["Content-Type", "Authorization"],
-    allowMethods: ["POST", "GET", "OPTIONS", "DELETE", "PATCH"],
-    credentials: true,
-  })
-);
+app.get("/", (c) => {
+  return c.text("Hello world");
+});
 
-app.basePath("/api").route("/books", booksRoute).route("/auth", authRoute);
+app.notFound(notFound);
+
+app.onError(onError);
 
 export default app;

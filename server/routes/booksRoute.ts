@@ -2,6 +2,7 @@ import type { Book } from "@model/booksModel";
 
 import { zValidator } from "@hono/zod-validator";
 import { bookRequestSchema } from "@request/booksRequest";
+import env from "@model/env";
 import { Hono } from "hono";
 import { bearerAuth } from "hono/bearer-auth";
 import { getCookie } from "hono/cookie";
@@ -40,7 +41,7 @@ export const booksRoute = new Hono()
   .use(
     "/*",
     jwt({
-      secret: Bun.env.SECRET!,
+      secret: env.SECRET!,
     }),
   )
   .get("/", (c) => {
