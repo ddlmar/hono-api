@@ -1,6 +1,7 @@
-import { createRoute, z } from "@hono/zod-openapi";
+import { createRoute } from "@hono/zod-openapi";
 
 import { createRouter } from "@lib/createApp";
+import { booksSchema } from "@schema/booksSchema";
 
 const router = createRouter().openapi(
   createRoute(
@@ -11,11 +12,7 @@ const router = createRouter().openapi(
         200: {
           content: {
             "application/json": {
-              schema: z.object({
-                author: z.string(),
-                title: z.string(),
-                year: z.number(),
-              }),
+              schema: booksSchema,
             },
           },
           description: "List of books",
@@ -26,9 +23,10 @@ const router = createRouter().openapi(
   ),
   (c) => {
     return c.json({
+      id: 1,
       author: "Miller",
       title: "White house in burn",
-      year: 1900,
+      date: "2000-10-10",
     });
   },
 );

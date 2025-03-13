@@ -12,7 +12,7 @@
     // Bundler mode
     "moduleResolution": "bundler",
     "paths": {
-      "@model/*": ["model/*"],
+      "@schema/*": ["schema/*"],
       "@request/*": ["request/*"],
       "@routes/*": ["routes/*"],
       "@response/*": ["response/*"],

@@ -1,4 +1,4 @@
-import env from "@model/env";
+import env from "@schema/env";
 import app from "./app";
 
 const port = env.PORT;

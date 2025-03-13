@@ -1,4 +1,4 @@
-import env from "@model/env";
+import env from "@schema/env";
 import { pinoLogger } from "hono-pino";
 import pino from "pino";
 import PinoPretty from "pino-pretty";
