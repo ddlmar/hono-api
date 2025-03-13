@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "module": "index.ts",
   "scripts": {
-    "start": "bun ./server/index.ts",
+    "start": "bun --hot ./server/index.ts",
     "dev": "bun --watch ./server/index.ts",
     "lint": "eslint",
     "lint:fix": "eslint --fix"
@@ -15,6 +15,7 @@
   "dependencies": {
     "@hono/zod-openapi": "^0.19.2",
     "@hono/zod-validator": "^0.4.2",
+    "@scalar/hono-api-reference": "^0.6.0",
     "hono": "^4.7.4",
     "hono-pino": "^0.7.2",
     "pino-pretty": "^13.0.0",

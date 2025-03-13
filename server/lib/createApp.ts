@@ -3,9 +3,10 @@ import { OpenAPIHono } from "@hono/zod-openapi";
 import { requestId } from "hono/request-id";
 import pinoLogger from "middleware/pinoLogger";
 import { notFound, onError } from "stoker/middlewares";
+import { defaultHook } from "stoker/openapi";
 
 export function createRouter() {
-  return new OpenAPIHono<Variables>({ strict: false });
+  return new OpenAPIHono<Variables>({ strict: false, defaultHook });
 }
 
 function createApp() {

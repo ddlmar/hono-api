@@ -2,6 +2,9 @@ import { createRoute } from "@hono/zod-openapi";
 
 import { createRouter } from "@lib/createApp";
 import { booksSchema } from "@schema/booksSchema";
+import * as HttpStatusCodes from "stoker/http-status-codes";
+
+import { jsonContent } from "stoker/openapi/helpers";
 
 const router = createRouter().openapi(
   createRoute(
@@ -9,15 +12,10 @@ const router = createRouter().openapi(
       method: "get",
       path: "/books",
       responses: {
-        200: {
-          content: {
-            "application/json": {
-              schema: booksSchema,
-            },
-          },
-          description: "List of books",
-        },
-
+        [HttpStatusCodes.OK]: jsonContent(
+          booksSchema,
+          "List of books",
+        ),
       },
     },
   ),
