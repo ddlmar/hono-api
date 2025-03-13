@@ -1,6 +1,7 @@
 {
-  "name": "express-api",
+  "name": "my-book-list",
   "type": "module",
+  "version": "1.0.0",
   "module": "index.ts",
   "scripts": {
     "start": "bun ./server/index.ts",
