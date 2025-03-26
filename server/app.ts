@@ -1,11 +1,12 @@
 import configureOpenApi from "@lib/configureOpenApi";
 import createApp from "@lib/createApp";
-import books from "@routes/books";
+
+import events from "@routes/events";
 
 const app = createApp();
 
 const routes = [
-  books,
+  events,
 ];
 
 configureOpenApi(app);
