@@ -16,6 +16,7 @@
     "@hono/zod-openapi": "^0.19.2",
     "@hono/zod-validator": "^0.4.2",
     "@scalar/hono-api-reference": "^0.6.0",
+    "drizzle-orm": "^0.41.0",
     "hono": "^4.7.4",
     "hono-pino": "^0.7.2",
     "pino-pretty": "^13.0.0",
@@ -24,7 +25,8 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "^4.8.1",
-    "@types/bun": "latest",
+    "@types/bun": "^1.2.6",
+    "drizzle-kit": "^0.30.5",
     "eslint": "^9.22.0",
     "eslint-plugin-format": "^1.0.1",
     "lint-staged": "^15.4.3",
