@@ -4,15 +4,16 @@
   "version": "1.0.0",
   "module": "index.ts",
   "scripts": {
-    "start": "bun --hot ./server/index.ts",
-    "dev": "bun --watch ./server/index.ts",
+    "start": "node ./dist/server/index.js",
+    "dev": "tsx watch server/index.ts",
     "lint": "eslint",
-    "lint:fix": "eslint --fix"
+    "lint:fix": "npm run eslint --fix"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
   },
   "dependencies": {
+    "@hono/node-server": "^1.14.0",
     "@hono/zod-openapi": "^0.19.2",
     "@hono/zod-validator": "^0.4.2",
     "@scalar/hono-api-reference": "^0.6.0",
@@ -22,6 +23,7 @@
     "hono": "^4.7.4",
     "hono-pino": "^0.7.2",
     "pg": "^8.14.1",
+    "pino": "^9.6.0",
     "pino-pretty": "^13.0.0",
     "postgres": "^3.4.5",
     "stoker": "^1.4.2",
@@ -29,12 +31,14 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "^4.8.1",
-    "@types/bun": "^1.2.6",
-    "drizzle-kit": "^0.30.5",
+    "@types/node": "^22.13.14",
+    "@types/pg": "^8.11.11",
+    "drizzle-kit": "^0.30.6",
     "eslint": "^9.22.0",
     "eslint-plugin-format": "^1.0.1",
     "lint-staged": "^15.4.3",
-    "simple-git-hooks": "^2.11.1"
+    "simple-git-hooks": "^2.11.1",
+    "tsx": "^4.19.3"
   },
   "simple-git-hooks": {
     "pre-commit": "bun lint-staged"

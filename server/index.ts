@@ -1,10 +1,11 @@
-import env from "@schema/env";
+import { serve } from "@hono/node-server";
 
+import env from "@schema/env";
 import app from "./app";
 
 const port = env.PORT;
 
-Bun.serve({
+serve({
   port,
   fetch: app.fetch,
 });
