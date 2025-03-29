@@ -1,4 +1,11 @@
+import { config } from "dotenv";
+
+import { expand } from "dotenv-expand";
 import { z } from "zod";
+
+const stringBoolean = z.coerce.string().transform((val) => {
+  return val === "true";
+}).default("false");
 
 const envSchema = z.object({
   PORT: z.coerce.number().default(5000),
@@ -18,7 +25,11 @@ const envSchema = z.object({
   DB_NAME: z.string(),
   DB_PORT: z.string(),
   DATABASE_URL: z.string(),
+  DB_MIGRATING: stringBoolean,
+  DB_SEEDING: stringBoolean,
 });
+
+expand(config());
 
 // eslint-disable-next-line node/prefer-global/process
 const env = envSchema.parse(process.env);

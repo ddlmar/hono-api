@@ -16,7 +16,9 @@
       "@request/*": ["request/*"],
       "@routes/*": ["routes/*"],
       "@response/*": ["response/*"],
-      "@lib/*": ["lib/*"]
+      "@lib/*": ["lib/*"],
+      "@dbSchema/*": ["db/schema/*"],
+      "@db/*": ["db/*"]
     },
     "allowImportingTsExtensions": true,
     "allowJs": true,

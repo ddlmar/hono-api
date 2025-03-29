@@ -46,5 +46,10 @@
     "pcss",
     "postcss"
   ],
-  "cSpell.words": ["Hono", "openapi"]
+  "cSpell.words": [
+    "Hono",
+    "onnotice",
+    "openapi",
+    "postgres"
+  ]
 }
