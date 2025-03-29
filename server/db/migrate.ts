@@ -1,5 +1,5 @@
 import env from "@schema/env";
-import { migrate } from "drizzle-orm/postgres-js/migrator";
+import { migrate } from "drizzle-orm/node-postgres/migrator";
 import db, { connection } from ".";
 
 import config from "../../drizzle.config";

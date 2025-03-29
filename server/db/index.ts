@@ -1,4 +1,4 @@
-import * as schema from "@dbSchema/index";
+// import * as schema from "@dbSchema/index";
 import env from "@schema/env";
 
 import { drizzle } from "drizzle-orm/node-postgres";
@@ -10,10 +10,7 @@ export const connection = postgres(env.DATABASE_URL, {
   onnotice: env.DB_SEEDING ? () => { } : undefined,
 });
 
-export const db = drizzle(connection, {
-  schema,
-  logger: true,
-});
+export const db = drizzle(env.DATABASE_URL);
 
 export type DB = typeof db;
 
