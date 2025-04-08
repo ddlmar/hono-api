@@ -29,6 +29,9 @@ importers:
       drizzle-orm:
         specifier: ^0.41.0
         version: 0.41.0(@types/pg@8.11.11)(bun-types@1.2.7)(gel@2.0.1)(pg@8.14.1)(postgres@3.4.5)
+      drizzle-zod:
+        specifier: ^0.7.1
+        version: 0.7.1(drizzle-orm@0.41.0(@types/pg@8.11.11)(bun-types@1.2.7)(gel@2.0.1)(pg@8.14.1)(postgres@3.4.5))(zod@3.24.2)
       hono:
         specifier: ^4.7.4
         version: 4.7.5
@@ -1268,6 +1271,12 @@ packages:
         optional: true
       sqlite3:
         optional: true
+
+  drizzle-zod@0.7.1:
+    resolution: {integrity: sha512-nZzALOdz44/AL2U005UlmMqaQ1qe5JfanvLujiTHiiT8+vZJTBFhj3pY4Vk+L6UWyKFfNmLhk602Hn4kCTynKQ==}
+    peerDependencies:
+      drizzle-orm: '>=0.36.0'
+      zod: '>=3.0.0'
 
   electron-to-chromium@1.5.128:
     resolution: {integrity: sha512-bo1A4HH/NS522Ws0QNFIzyPcyUUNV/yyy70Ho1xqfGYzPUme2F/xr4tlEOuM6/A538U1vDA7a4XfCd1CKRegKQ==}
@@ -3488,6 +3497,11 @@ snapshots:
       gel: 2.0.1
       pg: 8.14.1
       postgres: 3.4.5
+
+  drizzle-zod@0.7.1(drizzle-orm@0.41.0(@types/pg@8.11.11)(bun-types@1.2.7)(gel@2.0.1)(pg@8.14.1)(postgres@3.4.5))(zod@3.24.2):
+    dependencies:
+      drizzle-orm: 0.41.0(@types/pg@8.11.11)(bun-types@1.2.7)(gel@2.0.1)(pg@8.14.1)(postgres@3.4.5)
+      zod: 3.24.2
 
   electron-to-chromium@1.5.128: {}
 

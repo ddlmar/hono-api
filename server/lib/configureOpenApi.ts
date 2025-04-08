@@ -14,6 +14,7 @@ function configureOpenApi(app: AppOpenApi) {
 
   app.get("/reference", apiReference({
     url: "/docs",
+    layout: "classic",
     pageTitle: "FGC BR documentation",
   }));
 }
