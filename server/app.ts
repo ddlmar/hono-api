@@ -6,10 +6,7 @@ import users from "@routes/users";
 
 const app = createApp();
 
-const routes = [
-  events,
-  users,
-];
+const routes = [events, users];
 
 configureOpenApi(app);
 

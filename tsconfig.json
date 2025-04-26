@@ -18,7 +18,8 @@
       "@response/*": ["response/*"],
       "@lib/*": ["lib/*"],
       "@dbSchema/*": ["db/schema/*"],
-      "@db/*": ["db/*"]
+      "@db/*": ["db/*"],
+      "@middleware/*": ["middleware/*"]
     },
     "allowImportingTsExtensions": true,
     "allowJs": true,

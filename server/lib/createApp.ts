@@ -1,7 +1,8 @@
 import type { Variables } from "./types";
 import { OpenAPIHono } from "@hono/zod-openapi";
+import pinoLogger from "@middleware/pinoLogger";
 import { requestId } from "hono/request-id";
-import pinoLogger from "middleware/pinoLogger";
+import { timeout } from "hono/timeout";
 import { notFound, onError } from "stoker/middlewares";
 import { defaultHook } from "stoker/openapi";
 
@@ -14,6 +15,7 @@ function createApp() {
 
   app.use("*", requestId());
   app.use("*", pinoLogger());
+  app.use("*", timeout(5000));
 
   app.notFound(notFound);
 

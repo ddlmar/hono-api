@@ -2,10 +2,11 @@
 import antfu from "@antfu/eslint-config";
 
 export default antfu({
- formatters: true,
- stylistic: {
-  indent: 2,
-  quotes: "double",
-  semi: true,
- },
+  formatters: true,
+  rules: { "no-console": "warn" },
+  stylistic: {
+    indent: 2,
+    quotes: "double",
+    semi: true,
+  },
 });
