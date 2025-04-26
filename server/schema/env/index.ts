@@ -3,22 +3,18 @@ import { config } from "dotenv";
 import { expand } from "dotenv-expand";
 import { z } from "zod";
 
-const stringBoolean = z.coerce.string().transform((val) => {
-  return val === "true";
-}).default("false");
+const stringBoolean = z.coerce
+  .string()
+  .transform((val) => {
+    return val === "true";
+  })
+  .default("false");
 
 const envSchema = z.object({
   PORT: z.coerce.number().default(5000),
   ENV: z.string().default("development"),
   SECRET: z.string().default("1234"),
-  LOG_LEVEL: z.enum([
-    "fatal",
-    "error",
-    "warn",
-    "info",
-    "debug",
-    "trace",
-  ]),
+  LOG_LEVEL: z.enum(["fatal", "error", "warn", "info", "debug", "trace"]),
   DB_HOST: z.string(),
   DB_USER: z.string(),
   DB_PASSWORD: z.string(),

@@ -1,13 +1,26 @@
+import type { User } from "@schema/users";
+import createApp, { createAppTest } from "@lib/createApp";
 import router from "@routes/users";
-import { describe, expect, it } from "vitest";
+import { testClient } from "hono/testing";
+import { describe, expectTypeOf, it } from "vitest";
 
 describe("users", () => {
-  it("list response", async () => {
-    const response = await router.request("/users");
-    const result = await response.text();
+  const testRouter = createAppTest(router);
+  const app = createApp();
 
-    console.log(result);
+  it("list successfully users response", async () => {
+    const response = await testRouter.request("/users");
+    const result: Array<User> = await response.json();
 
-    expect(false).toBe(true);
+    expectTypeOf(result).toBeArray();
+  });
+
+  it("list successfully users response in client", async () => {
+    const client = testClient(app.route("/", router));
+
+    const response = await client.users.$get();
+    const result = await response.json();
+
+    expectTypeOf(result).toBeArray();
   });
 });

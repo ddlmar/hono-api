@@ -1,4 +1,4 @@
-import type { Variables } from "./types";
+import type { AppOpenApi, Variables } from "./types";
 import { OpenAPIHono } from "@hono/zod-openapi";
 import pinoLogger from "@middleware/pinoLogger";
 import { requestId } from "hono/request-id";
@@ -22,6 +22,13 @@ function createApp() {
   app.onError(onError);
 
   return app;
+}
+
+export function createAppTest(router: AppOpenApi) {
+  const testApp = createApp();
+  testApp.route("/", router);
+
+  return testApp;
 }
 
 export default createApp;
