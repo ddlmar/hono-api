@@ -1,4 +1,10 @@
-import type { CreateRoute, ListRoute, PatchRoute, RemoveRoute, RetrieveRoute } from "./routes";
+import type {
+  CreateRoute,
+  ListRoute,
+  PatchRoute,
+  RemoveRoute,
+  RetrieveRoute,
+} from "./routes";
 import { db } from "@db/index";
 import users from "@dbSchema/user";
 import { eq } from "drizzle-orm";
@@ -16,7 +22,16 @@ export const create: AppRouterHandler<CreateRoute> = async (c) => {
 
   const [inserted] = await db.insert(users).values(user).returning();
 
-  return c.json(inserted, HttpStatusCodes.OK);
+  return c.json(
+    {
+      id: inserted.id,
+      name: inserted.name,
+      email: inserted.email,
+      createdAt: inserted.createdAt,
+      updatedAt: inserted.updatedAt,
+    },
+    HttpStatusCodes.OK
+  );
 };
 
 export const retrieve: AppRouterHandler<RetrieveRoute> = async (c) => {
@@ -29,41 +44,52 @@ export const retrieve: AppRouterHandler<RetrieveRoute> = async (c) => {
   });
 
   if (!user) {
-    return c.json({
-      message: HttpStatusPhrases.NOT_FOUND,
-    }, HttpStatusCodes.NOT_FOUND);
+    return c.json(
+      {
+        message: HttpStatusPhrases.NOT_FOUND,
+      },
+      HttpStatusCodes.NOT_FOUND
+    );
   }
 
   return c.json(user, HttpStatusCodes.OK);
 };
-
 
 export const patch: AppRouterHandler<PatchRoute> = async (c) => {
   const { id } = c.req.valid("param");
 
   const updates = c.req.valid("json");
 
-  const [user] = await db.update(users).set(updates).where(eq(users.id, id)).returning()
+  const [user] = await db
+    .update(users)
+    .set(updates)
+    .where(eq(users.id, id))
+    .returning();
 
   if (!user) {
-    return c.json({
-      message: HttpStatusPhrases.NOT_FOUND,
-    }, HttpStatusCodes.NOT_FOUND);
+    return c.json(
+      {
+        message: HttpStatusPhrases.NOT_FOUND,
+      },
+      HttpStatusCodes.NOT_FOUND
+    );
   }
 
   return c.json(user, HttpStatusCodes.OK);
 };
 
-
 export const remove: AppRouterHandler<RemoveRoute> = async (c) => {
   const { id } = c.req.valid("param");
 
-  const result = await db.delete(users).where(eq(users.id, id)).returning()
+  const result = await db.delete(users).where(eq(users.id, id)).returning();
 
   if (result.length === 0) {
-    return c.json({
-      message: HttpStatusPhrases.NOT_FOUND,
-    }, HttpStatusCodes.NOT_FOUND);
+    return c.json(
+      {
+        message: HttpStatusPhrases.NOT_FOUND,
+      },
+      HttpStatusCodes.NOT_FOUND
+    );
   }
 
   return c.body(null, HttpStatusCodes.NO_CONTENT);

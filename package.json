@@ -8,7 +8,9 @@
     "dev": "tsx watch server/index.ts",
     "lint": "eslint",
     "lint:fix": "npm run lint --fix",
-    "test": "vitest"
+    "test": "vitest",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
