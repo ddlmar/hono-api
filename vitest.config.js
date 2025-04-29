@@ -13,6 +13,7 @@ export default defineConfig({
       "@db": resolve(__dirname, "server/db"),
       "@lib": resolve(__dirname, "server/lib"),
       "@middleware": resolve(__dirname, "server/middleware"),
+      "@utils": resolve(__dirname, "server/utils"),
     },
   },
 });

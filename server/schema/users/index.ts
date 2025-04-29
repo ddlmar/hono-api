@@ -19,4 +19,6 @@ export const insertUserSchema = createInsertSchema(users, {
   updatedAt: true,
 });
 
-export const patchUserSchema = insertUserSchema.partial();
+export const patchUserSchema = insertUserSchema.partial().omit({
+  password: true,
+});

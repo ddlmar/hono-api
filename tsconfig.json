@@ -19,7 +19,8 @@
       "@lib/*": ["lib/*"],
       "@dbSchema/*": ["db/schema/*"],
       "@db/*": ["db/*"],
-      "@middleware/*": ["middleware/*"]
+      "@middleware/*": ["middleware/*"],
+      "@utils/*": ["utils/*"]
     },
     "allowImportingTsExtensions": true,
     "allowJs": true,

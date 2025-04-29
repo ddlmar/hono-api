@@ -7,31 +7,29 @@ import type {
 } from "./routes";
 import { db } from "@db/index";
 import users from "@dbSchema/user";
+import fields from "@utils/fields";
+import updateRow from "@utils/updateRow";
+
 import { eq } from "drizzle-orm";
 import * as HttpStatusCodes from "stoker/http-status-codes";
 import * as HttpStatusPhrases from "stoker/http-status-phrases";
 
 export const list: AppRouterHandler<ListRoute> = async (c) => {
-  const users = await db.query.User.findMany();
+  const dbUsers = await db.query.User.findMany();
+
+  const users = fields.omit(dbUsers, ["password"]);
 
   return c.json(users);
 };
 
 export const create: AppRouterHandler<CreateRoute> = async (c) => {
-  const user = c.req.valid("json");
+  const jsonUser = c.req.valid("json");
 
-  const [inserted] = await db.insert(users).values(user).returning();
+  const [inserted] = await db.insert(users).values(jsonUser).returning();
 
-  return c.json(
-    {
-      id: inserted.id,
-      name: inserted.name,
-      email: inserted.email,
-      createdAt: inserted.createdAt,
-      updatedAt: inserted.updatedAt,
-    },
-    HttpStatusCodes.OK
-  );
+  const [user] = fields.omit(inserted, ["password"]);
+
+  return c.json(user, HttpStatusCodes.OK);
 };
 
 export const retrieve: AppRouterHandler<RetrieveRoute> = async (c) => {
@@ -58,7 +56,9 @@ export const retrieve: AppRouterHandler<RetrieveRoute> = async (c) => {
 export const patch: AppRouterHandler<PatchRoute> = async (c) => {
   const { id } = c.req.valid("param");
 
-  const updates = c.req.valid("json");
+  const jsonUser = c.req.valid("json");
+
+  const updates = updateRow.updatedAt(jsonUser);
 
   const [user] = await db
     .update(users)
