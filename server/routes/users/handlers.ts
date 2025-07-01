@@ -10,6 +10,7 @@ import users from "@dbSchema/user";
 import fields from "@utils/fields";
 import updateRow from "@utils/updateRow";
 
+import * as bcrypt from "bcrypt";
 import { eq } from "drizzle-orm";
 import * as HttpStatusCodes from "stoker/http-status-codes";
 import * as HttpStatusPhrases from "stoker/http-status-phrases";
@@ -25,7 +26,15 @@ export const list: AppRouterHandler<ListRoute> = async (c) => {
 export const create: AppRouterHandler<CreateRoute> = async (c) => {
   const jsonUser = c.req.valid("json");
 
-  const [inserted] = await db.insert(users).values(jsonUser).returning();
+  const hashedPassword = await bcrypt.hash(jsonUser.password, 10);
+
+  const [inserted] = await db
+    .insert(users)
+    .values({
+      ...jsonUser,
+      password: hashedPassword,
+    })
+    .returning();
 
   const [user] = fields.omit(inserted, ["password"]);
 

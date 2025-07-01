@@ -22,3 +22,8 @@ export const insertUserSchema = createInsertSchema(users, {
 export const patchUserSchema = insertUserSchema.partial().omit({
   password: true,
 });
+
+export const loginUserSchema = createSelectSchema(users).pick({
+  email: true,
+  password: true,
+});
