@@ -9,7 +9,6 @@ import { db } from "@db/index";
 import users from "@dbSchema/user";
 import fields from "@utils/fields";
 import updateRow from "@utils/updateRow";
-
 import * as bcrypt from "bcrypt";
 import { eq } from "drizzle-orm";
 import * as HttpStatusCodes from "stoker/http-status-codes";

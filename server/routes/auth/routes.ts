@@ -1,6 +1,6 @@
 import { createRoute } from "@hono/zod-openapi";
-import { notFoundSchema } from "@lib/constants";
-import { loginUserSchema } from "@schema/users";
+import { notFoundSchema, unauthorizedSchema } from "@lib/constants";
+import { loginUserSchema, successfullyLoginSchema } from "@schema/users";
 import * as HttpStatusCodes from "stoker/http-status-codes";
 import { jsonContent, jsonContentRequired } from "stoker/openapi/helpers";
 import { createErrorSchema } from "stoker/openapi/schemas";
@@ -15,11 +15,12 @@ export const login = createRoute({
     body: jsonContentRequired(loginUserSchema, "The user credentials"),
   },
   responses: {
-    [HttpStatusCodes.NO_CONTENT]: {
-      description: "Successfully login",
-    },
+    [HttpStatusCodes.OK]: jsonContent(
+      successfullyLoginSchema,
+      "Successfully login"
+    ),
     [HttpStatusCodes.UNAUTHORIZED]: jsonContent(
-      createErrorSchema(loginUserSchema),
+      unauthorizedSchema,
       "Invalid credentials"
     ),
     [HttpStatusCodes.NOT_FOUND]: jsonContent(notFoundSchema, "User not found"),

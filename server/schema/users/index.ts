@@ -27,3 +27,8 @@ export const loginUserSchema = createSelectSchema(users).pick({
   email: true,
   password: true,
 });
+
+export const successfullyLoginSchema = createSelectSchema(users).pick({
+  id: true,
+  email: true,
+});

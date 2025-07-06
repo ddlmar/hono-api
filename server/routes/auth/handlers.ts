@@ -1,6 +1,9 @@
+import bcrypt from "bcrypt";
 import type { LoginRoute } from "./routes";
 import { db } from "@db/index";
-import bcrypt from "bcrypt";
+import auth from "@utils/auth";
+import fields from "@utils/fields";
+import { setCookie } from "hono/cookie";
 import * as HttpStatusCodes from "stoker/http-status-codes";
 import * as HttpStatusPhrases from "stoker/http-status-phrases";
 
@@ -36,7 +39,11 @@ export const login: AppRouterHandler<LoginRoute> = async (c) => {
     );
   }
 
-  return c.json({
-    message: HttpStatusPhrases.NO_CONTENT,
-  });
+  const token = await auth.generateToken(dbUsers.id);
+
+  setCookie(c, "auth-token", token, auth.cookieOptions);
+
+  const [user] = fields.select(dbUsers, ["id", "email"]);
+
+  return c.json({ ...user, token }, HttpStatusCodes.OK);
 };

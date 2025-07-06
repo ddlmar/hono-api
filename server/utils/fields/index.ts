@@ -1,8 +1,8 @@
-function select<Type extends Record<string, unknown>>(
+function select<Type extends Record<string, unknown>, Keys extends keyof Type>(
   object: Type | Array<Type>,
-  keysToReturn: Array<keyof Type>
-) {
-  const propertiesToReturn = new Set(keysToReturn);
+  keysToReturn: Array<Keys>
+): Array<Pick<Type, Keys>> {
+  const propertiesToReturn = new Set<keyof Type>(keysToReturn);
 
   const pick = (obj: Type) => {
     const result: Partial<Type> = {};
@@ -27,11 +27,11 @@ function select<Type extends Record<string, unknown>>(
   return [pick(object)];
 }
 
-function omit<Type extends Record<string, unknown>>(
+function omit<Type extends Record<string, unknown>, Keys extends keyof Type>(
   object: Type | Array<Type>,
-  keysToOmit: Array<keyof Type>
-) {
-  const propertiesToOmit = new Set(keysToOmit);
+  keysToOmit: Array<Keys>
+): Array<Omit<Type, Keys>> {
+  const propertiesToOmit = new Set<keyof Type>(keysToOmit);
 
   const omit = (obj: Type) => {
     const result: Partial<Type> = {};
