@@ -12,7 +12,7 @@ const stringBoolean = z.coerce
 
 const envSchema = z.object({
   PORT: z.coerce.number().default(5000),
-  ENV: z.string().default("development"),
+  ENV: z.enum(["production", "development"]),
   SECRET: z.string().default("1234"),
   LOG_LEVEL: z.enum(["fatal", "error", "warn", "info", "debug", "trace"]),
   DB_HOST: z.string(),

@@ -23,22 +23,6 @@ export const list = createRoute({
   },
 });
 
-export const create = createRoute({
-  path: "/users",
-  method: "post",
-  request: {
-    body: jsonContentRequired(insertUserSchema, "The user to create"),
-  },
-  tags,
-  responses: {
-    [HttpStatusCodes.OK]: jsonContent(selectUsersSchema, "The created user"),
-    [HttpStatusCodes.BAD_REQUEST]: jsonContent(
-      createErrorSchema(insertUserSchema),
-      "Invalid data"
-    ),
-  },
-});
-
 export const retrieve = createRoute({
   path: "/users/{id}",
   method: "get",
@@ -95,12 +79,10 @@ export const remove = createRoute({
 
 type ListRoute = typeof list;
 
-type CreateRoute = typeof create;
-
 type RetrieveRoute = typeof retrieve;
 
 type PatchRoute = typeof patch;
 
 type RemoveRoute = typeof remove;
 
-export type { CreateRoute, ListRoute, PatchRoute, RemoveRoute, RetrieveRoute };
+export type { ListRoute, PatchRoute, RemoveRoute, RetrieveRoute };

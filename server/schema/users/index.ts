@@ -32,3 +32,7 @@ export const successfullyLoginSchema = createSelectSchema(users).pick({
   id: true,
   email: true,
 });
+
+export const getProfileSchema = createSelectSchema(users).omit({
+  password: true,
+});
