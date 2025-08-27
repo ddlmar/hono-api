@@ -9,3 +9,21 @@ services:
       - ${DB_PORT}:${DB_PORT}
     volumes:
       - ./db-data:/var/lib/postgresql/data
+  server:
+    build: .
+    environment:
+      - PORT=${PORT}
+      - SECRET=${SECRET}
+      - ENV=${ENV}
+      - LOG_LEVEL=${LOG_LEVEL}
+      - DB_HOST=${DB_HOST}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME}
+      - DB_PORT=${DB_PORT}
+      - DATABASE_URL=${DATABASE_URL}
+    ports:
+      - "${PORT}:${PORT}"
+    volumes:
+      - /app/node_modules
+      - .:/app

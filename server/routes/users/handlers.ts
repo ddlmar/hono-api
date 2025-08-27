@@ -1,3 +1,9 @@
+import type {
+  ListRoute,
+  PatchRoute,
+  RemoveRoute,
+  RetrieveRoute,
+} from "./routes";
 import { db } from "@db/index";
 import users from "@dbSchema/user";
 import fields from "@utils/fields";
@@ -5,12 +11,6 @@ import updateRow from "@utils/updateRow";
 import { eq } from "drizzle-orm";
 import * as HttpStatusCodes from "stoker/http-status-codes";
 import * as HttpStatusPhrases from "stoker/http-status-phrases";
-import type {
-  ListRoute,
-  PatchRoute,
-  RemoveRoute,
-  RetrieveRoute,
-} from "./routes";
 
 export const list: AppRouterHandler<ListRoute> = async (c) => {
   const dbUsers = await db.query.User.findMany();
